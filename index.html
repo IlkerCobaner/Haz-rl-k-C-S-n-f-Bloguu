@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Our Classroom – A Class Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F9FC; --card:#FFFFFF; --ink:#1B2A41; --muted:#5B6B82; --line:#D8E2F0;
+  --blue:#2F6FDE; --yellow:#FFC93C; --green:#2E9E64; --desk:#E7EEF9; --desk-edge:#B9CBE6;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--paper:#121A27;--card:#1A2536;--ink:#EAF0FA;--muted:#9FB0C8;--line:#2B3A52;--blue:#6FA2FF;--yellow:#FFD45E;--green:#5CCB93;--desk:#24324A;--desk-edge:#3A4D6E;color-scheme:dark}
+}
+:root[data-theme="dark"]{--paper:#121A27;--card:#1A2536;--ink:#EAF0FA;--muted:#9FB0C8;--line:#2B3A52;--blue:#6FA2FF;--yellow:#FFD45E;--green:#5CCB93;--desk:#24324A;--desk-edge:#3A4D6E;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;font-size:17px;line-height:1.65;
+  background-image:repeating-linear-gradient(transparent 0 33px,var(--line) 33px 34px)}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+header.top{padding:14px 0;border-bottom:3px solid var(--yellow);background:var(--card)}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font-family:'Fredoka',sans-serif;font-weight:700;font-size:20px}
+nav{display:flex;gap:16px;font-weight:800;font-size:15px;overflow-x:auto}
+nav a{color:var(--blue);text-decoration:none;white-space:nowrap}
+nav a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.hero{padding:44px 0 28px}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(34px,8vw,56px);line-height:1.08;margin:0 0 14px;letter-spacing:-.01em}
+.hero p.lead{font-size:19px;color:var(--muted);max-width:52ch;margin:0 0 26px}
+.board{background:var(--card);border:2px solid var(--desk-edge);border-radius:18px;padding:18px}
+.board h2{font-family:'Fredoka',sans-serif;font-size:18px;margin:0 0 4px}
+.board small{color:var(--muted);display:block;margin-bottom:14px}
+.desks{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.desk{aspect-ratio:1.35;background:var(--desk);border:2px solid var(--desk-edge);border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-family:'Fredoka',sans-serif;font-size:13px;color:var(--muted);cursor:pointer;transition:transform .15s,background .15s;user-select:none}
+.desk:hover,.desk.on{background:var(--yellow);color:#1B2A41;transform:translateY(-2px)}
+.counter{margin-top:12px;font-weight:800;min-height:1.6em}
+.desk.seen{border-color:var(--green);box-shadow:inset 0 0 0 2px var(--green)}
+.rulecard{margin-top:16px;background:var(--desk);border-left:6px solid var(--yellow);border-radius:10px;padding:12px 16px;min-height:96px}
+.rulecard b{display:block;font-family:'Fredoka',sans-serif;font-size:20px;color:var(--blue)}
+.rulecard span{font-size:18px;font-weight:600}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:26px 0}
+.fact{background:var(--card);border-left:6px solid var(--blue);border-radius:10px;padding:14px 16px}
+.fact:nth-child(2){border-color:var(--yellow)}.fact:nth-child(3){border-color:var(--green)}
+.fact b{display:block;font-family:'Fredoka',sans-serif;font-size:28px;line-height:1.1}
+.fact span{color:var(--muted);font-size:15px}
+article{background:var(--card);border-radius:18px;padding:26px 24px;margin:8px 0 30px;border:1px solid var(--line)}
+.meta{color:var(--muted);font-size:15px;margin:0 0 18px}
+article h2{font-family:'Fredoka',sans-serif;font-size:26px;margin:0 0 6px}
+article h3{font-family:'Fredoka',sans-serif;font-size:20px;margin:26px 0 4px;color:var(--blue)}
+article p{margin:0 0 10px;max-width:68ch}
+.rules{margin:6px 0 10px;padding-left:22px;max-width:68ch}.rules li{margin-bottom:6px;padding-left:4px}.rules li::marker{color:var(--green);font-weight:800}
+.quote{border-left:5px solid var(--yellow);padding:6px 16px;margin:22px 0 0;font-weight:600}
+.comments{margin-bottom:40px}
+.comments h2{font-family:'Fredoka',sans-serif;font-size:24px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:10px}
+.c b{color:var(--green)}
+input,textarea{width:100%;font:inherit;color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:10px}
+button{font:inherit;font-weight:800;background:var(--blue);color:#fff;border:0;border-radius:10px;padding:10px 20px;cursor:pointer}
+:root[data-theme="dark"] button{color:#0d1626}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) button{color:#0d1626}}
+footer{padding:22px 0 30px;text-align:center;color:var(--muted);font-size:15px;background:var(--card);border-top:3px solid var(--yellow)}
+@media (max-width:560px){.facts{grid-template-columns:1fr}.desks{gap:6px}article{padding:20px 16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand">✏️ Our Class Blog</div>
+  <nav><a href="#post">Blog post</a><a href="#comments">Comments</a></nav>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Welcome to our classroom!</h1>
+    <p class="lead">30 students, 30 desks and a lot of great ideas. Come inside and see where we learn every day.</p>
+    <div class="board">
+      <h2>Our 30 desks, our 30 rules</h2>
+      <small>Tap a desk to read its class rule.</small>
+      <div class="desks" id="desks" role="group" aria-label="30 desks"></div>
+      <div class="rulecard" id="rulecard" aria-live="polite"><b id="rnum">Tap a desk to start</b><span id="rtext">Every desk has a different class rule.</span></div>
+      <div class="counter" id="counter">Rules read: 0 of 30</div>
+    </div>
+  </section>
+
+  <section class="facts" aria-label="Quick facts">
+    <div class="fact"><b>30</b><span>students in our class</span></div>
+    <div class="fact"><b>30</b><span>desks, one for each of us</span></div>
+    <div class="fact"><b>1</b><span>friendly team of teachers</span></div>
+  </section>
+
+  <article id="post">
+    <h2>My Classroom</h2>
+    <p class="meta">Posted by a student of the class · School blog</p>
+    <p>Hello, everyone! Today I want to introduce my classroom. It is a bright and friendly place. There are 30 students in my class and there are 30 desks. Every student has a place to sit, learn and share ideas.</p>
+
+    <h3>Our class rules</h3>
+    <p>We have 30 class rules, one for every desk. Tap the desks at the top of the page to read them all! The most important one is to keep quiet when the teacher or a friend is speaking. When we listen carefully, everybody can learn better and the classroom stays calm.</p>
+
+    <h3>Where supplies are kept</h3>
+    <p>We keep our books, notebooks and pencils in our desks and bags. Shared things, like colored pens and paper, are kept in one place so we can find them easily.</p>
+
+    <h3>Group work activity</h3>
+    <p>We often work in small groups. We talk about a topic together, make posters or flashcards, and then present our work to the class.</p>
+
+    <h3>Technology we use</h3>
+    <p>Our teachers use a classroom screen to show videos, pictures and presentations. Sometimes we use computers to write and to search for information.</p>
+
+    <h3>Why it's special</h3>
+    <p>My classroom is special because we have wonderful teachers and kind classmates. Everyone shares ideas, and we help each other. It is a nice place to learn and to have fun.</p>
+
+    <p class="quote">What is special about your classroom? Write a comment below!</p>
+  </article>
+
+  <section class="comments" id="comments">
+    <h2>Comments</h2>
+    <div id="clist"></div>
+    <input id="cname" placeholder="Your name" maxlength="30" aria-label="Your name">
+    <textarea id="ctext" rows="3" placeholder="Write your comment in English" maxlength="300" aria-label="Your comment"></textarea>
+    <button id="cbtn" type="button">Post comment</button>
+  </section>
+</main>
+
+<footer><div class="wrap">Made by our class · 30 students, 30 desks, one great classroom</div></footer>
+
+<script>
+(function(){
+  var RULES=[`Keep quiet when someone is speaking.`,`Raise your hand before you talk.`,`Be kind and respectful to everyone.`,`Come to class on time.`,`Bring your books and pencils every day.`,`Keep your desk clean and tidy.`,`Put rubbish in the bin.`,`Listen carefully to the teacher.`,`Share your ideas with the class.`,`Listen to other people's ideas.`,`Help a friend who needs help.`,`Say please and thank you.`,`Walk, don't run, in the classroom.`,`Do your homework on time.`,`Use polite words only.`,`Put your phone away during the lesson.`,`Work quietly during tests.`,`Take care of the classroom things.`,`Put supplies back in their place.`,`Take turns when you speak.`,`Don't shout across the classroom.`,`Be a good team member in group work.`,`Respect other people's things.`,`Ask a question when you don't understand.`,`Stay in your seat during the lesson.`,`Switch off the lights and the screen at the end of the day.`,`Say hello to your teachers with a smile.`,`Don't be afraid of making mistakes.`,`Push your chair in before you leave.`,`Have fun and enjoy learning together!`],seen={};
+  var box=document.getElementById('desks'),out=document.getElementById('counter'),n=0;
+  for(var i=1;i<=30;i++){
+    var d=document.createElement('div');d.className='desk';d.textContent=i;d.setAttribute('role','button');d.tabIndex=0;
+    (function(el,num){
+      function pick(){
+        var all=box.children;for(var k=0;k<all.length;k++){all[k].classList.toggle('on',k===num-1)}
+        el.classList.add('seen');seen[num]=1;
+        document.getElementById('rnum').textContent='Desk '+num+' rule';
+        document.getElementById('rtext').textContent=RULES[num-1];
+        var c=Object.keys(seen).length;
+        out.textContent=c===30?'You read all 30 rules. Great job, class!':'Rules read: '+c+' of 30';
+      }
+      el.addEventListener('click',pick);
+      el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick()}});
+    })(d,i);
+    box.appendChild(d);
+  }
+  document.getElementById('cbtn').addEventListener('click',function(){
+    var nm=document.getElementById('cname'),tx=document.getElementById('ctext');
+    var t=tx.value.trim();if(!t)return;
+    var c=document.createElement('div');c.className='c';
+    var b=document.createElement('b');b.textContent=(nm.value.trim()||'Classmate')+': ';
+    c.appendChild(b);c.appendChild(document.createTextNode(t));
+    document.getElementById('clist').appendChild(c);tx.value='';
+  });
+})();
+</script>
+</body>
+</html>
